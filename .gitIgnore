@@ -7,6 +7,7 @@
 
 # testing
 /Frontend/coverage
+/Frontend/build
 
 # production
 /Backend/Config/config.env
