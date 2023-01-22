@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start":"node Backend/server.js",
-    "build":"cd Frontend/ && npm run build",
     "dev":"nodemon Backend/server.js"
   },
   "author": "Suraj PRakash Gautam",
