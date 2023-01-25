@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box, Center, Text } from "@chakra-ui/react";
+import React from "react";
+import { FaLaptop } from "react-icons/fa";
+import AppRoutes from "./Routes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Center
+        display={{ base: "none", md: "none", lg: "none" }}
+        h="100vh"
+        justifyContent={"center"}
+        alignItems="center"
+        bg="red.100"
+        flexDir={"column"}
+      >
+        <FaLaptop size={100} color={"#9B2C2C"} />
+        <Text color={"red.700"} fontFamily="arial" fontWeight={"bold"}>
+          UNSUPPORTED DEVICE
+        </Text>
+      </Center>
+      <Box display={{ base: "block", md: "block", lg: "block" }}>
+        <AppRoutes />
+      </Box>
+    </>
   );
 }
 
