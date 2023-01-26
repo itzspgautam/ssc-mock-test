@@ -479,7 +479,7 @@ const QuestionScreen = () => {
                     </Box>
                   ) : q.status === "review_answered" ? (
                     <Box onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.Answered title={i + 1} />
+                      <QuestionBadge.ReviewAnswered title={i + 1} />
                     </Box>
                   ) : (
                     <Box onClick={() => badgeClickHandle(i, q)}>
