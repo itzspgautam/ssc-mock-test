@@ -18,13 +18,9 @@ const updateAvatar = (cropedAvatar) => async (dispatch) => {
 
     const config = {
       onUploadProgress: function (progressEvent) {
-        var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        // dispatch({
-        //   type: UPDATE_AVATAR_REQUEST,
-        //   payload: { status: { uploading: true, percent: percentCompleted } },
-        // });
+        // var percentCompleted = Math.round(
+        //   (progressEvent.loaded * 100) / progressEvent.total
+        // );
       },
     };
 
@@ -92,4 +88,11 @@ const voidCandidateOnState = () => async (dispatch) => {
   dispatch({ type: types.VOID_CANDIDATE });
 };
 
-export default { updateAvatar, createCandidate, voidCandidateOnState, types };
+const CandidateAction = {
+  updateAvatar,
+  createCandidate,
+  voidCandidateOnState,
+  types,
+};
+
+export default CandidateAction;

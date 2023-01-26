@@ -15,7 +15,7 @@ const badgeStyle = {
   width: "50px",
 };
 
-const answered = ({ title }) => {
+const Answered = ({ title }) => {
   return (
     <Box
       style={{ ...badgeStyle, color: Colors.LIGHT_WHITE }}
@@ -27,7 +27,7 @@ const answered = ({ title }) => {
   );
 };
 
-const notAnswered = ({ title }) => {
+const NotAnswered = ({ title }) => {
   return (
     <Box
       style={{
@@ -44,7 +44,7 @@ const notAnswered = ({ title }) => {
   );
 };
 
-const review = ({ title }) => {
+const Review = ({ title }) => {
   return (
     <Box
       style={{
@@ -62,7 +62,7 @@ const review = ({ title }) => {
   );
 };
 
-const review_answered = ({ title }) => {
+const ReviewAnswered = ({ title }) => {
   return (
     <Box
       style={{
@@ -82,7 +82,7 @@ const review_answered = ({ title }) => {
   );
 };
 
-const visited = ({ title }) => {
+const Visited = ({ title }) => {
   return (
     <Box
       style={{
@@ -98,7 +98,7 @@ const visited = ({ title }) => {
   );
 };
 
-const not_visited = ({ title }) => {
+const NotVisited = ({ title }) => {
   return (
     <Box
       style={{
@@ -117,33 +117,13 @@ const not_visited = ({ title }) => {
   );
 };
 
-export default {
-  answered,
-  notAnswered,
-  review,
-  review_answered,
-  visited,
-  not_visited,
+const QuestionBadge = {
+  Answered,
+  NotAnswered,
+  Review,
+  ReviewAnswered,
+  Visited,
+  NotVisited,
 };
 
-// .question_area span.review_marked {
-// 	background-position: -203px -49px;
-//     height: 53px;
-//     line-height: 50px;
-//     margin-bottom: 0;
-//   /*  margin-right: 5px;*/
-//     width: 53px;
-// }
-
-// .question_area span.visited {
-// 	    background-position: -208px -4px;
-//     height: 43px;
-//     line-height: 43px;
-// }
-
-// .question_area span.not_visited {
-//  background-position: -157px -4px;
-//     color: #474747;
-//     height: 43px;
-//     line-height: 43px;
-// }
+export default QuestionBadge;

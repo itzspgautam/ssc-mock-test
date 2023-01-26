@@ -1,4 +1,5 @@
 import axios from "axios";
+import SystemAction from "./SystemAction";
 const types = {
   GET_QUESTION: "GET_QUESTION",
   SET_ANSWER: "SET_ANSWER",
@@ -65,6 +66,7 @@ const submitAnswer = (exam, candidate, answered) => async (dispatch) => {
     if (submitRes) {
       await localStorage.removeItem("assignCandidateToken");
       await localStorage.removeItem("assignCandidate");
+      await dispatch({ type: SystemAction.types.SYSTEM_ASSIGN, payload: null });
       dispatch({
         type: types.SUBMIT_ANSWER,
       });
@@ -74,10 +76,11 @@ const submitAnswer = (exam, candidate, answered) => async (dispatch) => {
   }
 };
 
-export default {
+const QuestionAction = {
   getQuestion,
   setAnswer,
   setActiveQuestion,
   submitAnswer,
   types,
 };
+export default QuestionAction;

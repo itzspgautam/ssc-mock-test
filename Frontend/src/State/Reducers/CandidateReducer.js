@@ -1,4 +1,4 @@
-import { AdminAction, CandidateAction } from "../Actions";
+import { CandidateAction } from "../Actions";
 
 const initialState = {
   newCandidate: null,
@@ -41,13 +41,6 @@ const CandidateReducer = (state = initialState, action) => {
       return {
         ...state,
         uploadError: action.payload,
-        uploadingImage: false,
-      };
-
-    case CandidateAction.types.REGISTER_CANDIDATE:
-      return {
-        ...state,
-        newCandidate: action.payload,
         uploadingImage: false,
       };
 

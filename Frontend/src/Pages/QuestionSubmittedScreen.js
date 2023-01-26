@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardHeader,
@@ -26,7 +25,7 @@ const QuestionSubmittedScreen = () => {
 
         <Grid templateColumns="repeat(2, 1fr)" gap={6} p="4" mt="4">
           <GridItem w="100%" display="flex" alignItems={"center"} gap="2">
-            <QuestionBadge.answered
+            <QuestionBadge.Answered
               title={
                 answers?.filter(function (q) {
                   return q.status === "answered";
@@ -39,7 +38,7 @@ const QuestionSubmittedScreen = () => {
           </GridItem>
 
           <GridItem w="100%" display="flex" alignItems={"center"} gap="2">
-            <QuestionBadge.notAnswered
+            <QuestionBadge.NotAnswered
               title={
                 answers?.filter(function (q) {
                   return q.status === "not_answered";
@@ -52,7 +51,7 @@ const QuestionSubmittedScreen = () => {
           </GridItem>
 
           <GridItem w="100%" display="flex" alignItems={"center"} gap="2">
-            <QuestionBadge.review
+            <QuestionBadge.Review
               title={
                 answers?.filter(function (q) {
                   return q.status === "review";
@@ -65,7 +64,7 @@ const QuestionSubmittedScreen = () => {
           </GridItem>
 
           <GridItem w="100%" display="flex" alignItems={"center"} gap="2">
-            <QuestionBadge.not_visited
+            <QuestionBadge.NotVisited
               title={
                 answers?.filter(function (q) {
                   return q.status === "not_visited";
@@ -84,7 +83,7 @@ const QuestionSubmittedScreen = () => {
             gap="2"
             colSpan={2}
           >
-            <QuestionBadge.review_answered
+            <QuestionBadge.ReviewAnswered
               title={
                 answers?.filter(function (q) {
                   return q.status === "review_answered";

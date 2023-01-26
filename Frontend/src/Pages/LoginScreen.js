@@ -15,12 +15,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { Colors, Images } from "../Constants";
+import { Colors } from "../Constants";
 import { FaUser } from "react-icons/fa";
 import { ImKeyboard } from "react-icons/im";
 import { MdLock } from "react-icons/md";
-import { QuestionImport, VersionFooter, VirtualKeyboard } from "../Components";
-import { Link, useNavigate } from "react-router-dom";
+import { VersionFooter, VirtualKeyboard } from "../Components";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { QuestionAction } from "../State/Actions";
@@ -70,11 +70,11 @@ const LoginScreen = () => {
   useEffect(() => {
     if (localStorage.getItem("assignCandidate")) return;
     else navigate("/assign");
-  }, [assignCandidate]);
+  }, [assignCandidate, navigate]);
 
   useEffect(() => {
     if (localStorage.getItem("assignCandidateToken")) navigate("/instruction");
-  }, [assignCandidate]);
+  }, [assignCandidate, navigate]);
 
   return (
     <Grid
@@ -95,7 +95,7 @@ const LoginScreen = () => {
             py="2"
             height={"20vh"}
             flex={1}
-            display={["none", , "none", "block"]}
+            display={["none", "none", "block"]}
           >
             <Text
               color={Colors.LIGHT_WHITE}

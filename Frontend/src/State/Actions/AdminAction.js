@@ -51,4 +51,5 @@ const verifyToken = async (token) => {
   }
 };
 
-export default { adminLogin, verifyToken, types };
+const AdminAction = { adminLogin, verifyToken, types };
+export default AdminAction;

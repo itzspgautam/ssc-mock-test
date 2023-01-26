@@ -1,6 +1,5 @@
-import { Box, Center, Spinner, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { FaLaptop } from "react-icons/fa";
+import { Box, Center, Spinner } from "@chakra-ui/react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppRoutes from "./Routes";
 import { SystemAction } from "./State/Actions";
@@ -8,13 +7,16 @@ import { SystemAction } from "./State/Actions";
 function App() {
   const { appLoading } = useSelector((state) => state.System);
   const dispatch = useDispatch();
-  const appStart = async () => {
+  // const appStart = async () => {
+  //   await dispatch(SystemAction.appStart());
+  // };
+  const appStart = useCallback(async () => {
     await dispatch(SystemAction.appStart());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     appStart();
-  }, []);
+  }, [appStart]);
 
   return (
     <>

@@ -10,7 +10,6 @@ import {
   InputLeftElement,
   Select,
   Stack,
-  StackDivider,
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -25,7 +24,6 @@ const HomeScreen = () => {
 
   const { systems, logSystem, error } = useSelector((state) => state.System);
 
-  const [webLoading, setWebLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -33,11 +31,12 @@ const HomeScreen = () => {
   const systemLoginHandle = async () => {
     setLoading(true);
     await dispatch(SystemAction.systemLogin(id, password));
+    setLoading(false);
   };
 
   useEffect(() => {
     if (logSystem) navigate("/assign");
-  }, [logSystem]);
+  }, [logSystem, navigate]);
 
   return (
     <Box
@@ -83,7 +82,11 @@ const HomeScreen = () => {
             <Text color={"red"} fontSize="14" fontWeight={"medium"}>
               {error ? error : " "}
             </Text>
-            <Button colorScheme={"teal"} onClick={() => systemLoginHandle()}>
+            <Button
+              isLoading={loading}
+              colorScheme={"teal"}
+              onClick={() => systemLoginHandle()}
+            >
               Login
             </Button>
           </Stack>

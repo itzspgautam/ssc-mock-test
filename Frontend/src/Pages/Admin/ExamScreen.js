@@ -14,12 +14,10 @@ import {
   Spinner,
   Stack,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -27,7 +25,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Colors } from "../../Constants";
 import moment from "moment";
-import { FaCalendar, FaLock } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
 import { BsAlarm, BsNewspaper } from "react-icons/bs";
 import { QuestionImport } from "../../Components";
 import { useState } from "react";

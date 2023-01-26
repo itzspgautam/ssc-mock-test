@@ -255,7 +255,7 @@ const assignSystem = (candidate) => async (dispatch) => {
   }
 };
 
-export default {
+const SystemAction = {
   appStart,
   getSystems,
   systemLogin,
@@ -263,3 +263,5 @@ export default {
   createExam,
   types,
 };
+
+export default SystemAction;

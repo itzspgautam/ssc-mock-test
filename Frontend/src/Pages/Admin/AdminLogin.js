@@ -8,12 +8,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
   Stack,
-  StackDivider,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Colors } from "../../Constants";
 import { FaLock, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +29,7 @@ const AdminLogin = () => {
   const adminLoginHandle = async () => {
     setLoading(true);
     await dispatch(AdminAction.adminLogin(id, password));
+    setLoading(false);
   };
 
   return (
@@ -78,7 +77,11 @@ const AdminLogin = () => {
             <Text color={"red"} fontSize="14" fontWeight={"medium"}>
               {error && error}
             </Text>
-            <Button colorScheme={"teal"} onClick={() => adminLoginHandle()}>
+            <Button
+              isLoading={loading}
+              colorScheme={"teal"}
+              onClick={() => adminLoginHandle()}
+            >
               Login
             </Button>
           </Stack>

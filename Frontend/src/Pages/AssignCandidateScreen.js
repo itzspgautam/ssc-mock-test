@@ -11,15 +11,12 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightAddon,
-  InputRightElement,
-  Select,
   Skeleton,
   Stack,
-  StackDivider,
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Colors, Images } from "../Constants";
+import { Colors } from "../Constants";
 import { FaUser, FaSearch } from "react-icons/fa";
 import { SystemAction } from "../State/Actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,13 +27,10 @@ const AssignCandidateScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { assignCandidate, exams, logSystem } = useSelector(
-    (state) => state.System
-  );
+  const { assignCandidate, logSystem } = useSelector((state) => state.System);
 
   const [candidate, setCandidate] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [selectedExam, setSelectedExam] = useState("");
 
   const [reg, setReg] = useState("");
   const [error, setError] = useState("");
@@ -75,11 +69,11 @@ const AssignCandidateScreen = () => {
 
   useEffect(() => {
     if (assignCandidate) navigate("/exam");
-  }, [assignCandidate]);
+  }, [assignCandidate, navigate]);
 
   useEffect(() => {
     if (!logSystem) navigate("/");
-  }, [logSystem]);
+  }, [logSystem, navigate]);
 
   return (
     <Box

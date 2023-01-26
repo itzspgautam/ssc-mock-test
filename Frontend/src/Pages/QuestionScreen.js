@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Colors, Images, MyTimer } from "../Constants";
+import { Colors, MyTimer } from "../Constants";
 import { FaInfoCircle } from "react-icons/fa";
 import { QuestionBadge, VersionFooter } from "../Components";
 import { useDispatch, useSelector } from "react-redux";
@@ -137,19 +137,19 @@ const QuestionScreen = () => {
   useEffect(() => {
     if (questions) return;
     dispatch(QuestionAction.getQuestion(assignCandidate?.exam?._id));
-  }, [assignCandidate]);
+  }, [assignCandidate, questions, dispatch]);
 
   useEffect(() => {
     if (isSubmit) {
       navigate("/submit");
     }
-  }, [isSubmit]);
+  }, [isSubmit, navigate]);
 
   useEffect(() => {
     if (!logSystem) {
       navigate("/");
     }
-  }, []);
+  }, [logSystem, navigate]);
 
   return (
     <Grid
@@ -199,7 +199,7 @@ const QuestionScreen = () => {
       </GridItem>
 
       <GridItem area={"question"} pb={["10", "0", "0"]}>
-        <Text
+        <Flex
           p="2"
           fontFamily={"arial"}
           fontSize={14}
@@ -208,9 +208,9 @@ const QuestionScreen = () => {
           display={"flex"}
           justifyContent="space-between"
         >
-          Question Type: MCQ
+          <Text>Question Type: MCQ</Text>
           <MyTimer expiryTimestamp={time} submitHandle={submitHandle} />
-        </Text>
+        </Flex>
 
         <Flex
           p="2"
@@ -236,7 +236,7 @@ const QuestionScreen = () => {
         <Flex flexDir={"column"}>
           <Box h={{ lg: "490" }} overflowY={"auto"}>
             {questions?.map((ques, i) => (
-              <Box id={ques._id}>
+              <Box key={ques._id}>
                 {ques._id === activeQuestion.question && (
                   <Box
                     p="1"
@@ -279,7 +279,7 @@ const QuestionScreen = () => {
                         onChange={(e) => setSelectOption(e)}
                       >
                         {ques.options.map((o) => (
-                          <Radio value={o._id}>
+                          <Radio value={o._id} key={o._id}>
                             {o.option}.{"  "}
                             {lang === "english" ? o.english : o.hindi}
                           </Radio>
@@ -382,7 +382,7 @@ const QuestionScreen = () => {
         <Box p="2">
           <Grid templateColumns="repeat(2, 1fr)" gap={1}>
             <GridItem display={"flex"} gap="1">
-              <QuestionBadge.answered
+              <QuestionBadge.Answered
                 title={
                   answers?.filter(function (q) {
                     return q.status === "answered";
@@ -394,7 +394,7 @@ const QuestionScreen = () => {
               </Text>
             </GridItem>
             <GridItem display={"flex"} gap="1">
-              <QuestionBadge.notAnswered
+              <QuestionBadge.NotAnswered
                 title={
                   answers?.filter(function (q) {
                     return q.status === "not_answered";
@@ -407,7 +407,7 @@ const QuestionScreen = () => {
             </GridItem>
 
             <GridItem display={"flex"} gap="1">
-              <QuestionBadge.not_visited
+              <QuestionBadge.NotVisited
                 title={
                   answers?.filter(function (q) {
                     return q.status === "not_visited";
@@ -420,7 +420,7 @@ const QuestionScreen = () => {
             </GridItem>
 
             <GridItem display={"flex"} gap="1">
-              <QuestionBadge.review
+              <QuestionBadge.Review
                 title={
                   answers?.filter(function (q) {
                     return q.status === "review";
@@ -437,7 +437,7 @@ const QuestionScreen = () => {
               </Text>
             </GridItem>
             <GridItem colSpan={2} display={"flex"} gap="1">
-              <QuestionBadge.review_answered
+              <QuestionBadge.ReviewAnswered
                 title={
                   answers?.filter(function (q) {
                     return q.status === "review_answered";
@@ -464,27 +464,27 @@ const QuestionScreen = () => {
           <Box height={{ md: "280", lg: "280" }} overflowY="auto">
             <Grid templateColumns="repeat(5, 1fr)" gap={0} mt="2" px="2">
               {answers?.map((q, i) => (
-                <GridItem key={q._id}>
+                <GridItem key={i}>
                   {q.status === "answered" ? (
-                    <span onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.answered title={i + 1} />
-                    </span>
+                    <Box onClick={() => badgeClickHandle(i, q)}>
+                      <QuestionBadge.Answered title={i + 1} />
+                    </Box>
                   ) : q.status === "not_answered" ? (
-                    <span onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.notAnswered title={i + 1} />
-                    </span>
+                    <Box onClick={() => badgeClickHandle(i, q)}>
+                      <QuestionBadge.NotAnswered title={i + 1} />
+                    </Box>
                   ) : q.status === "review" ? (
-                    <span onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.review title={i + 1} />
-                    </span>
+                    <Box onClick={() => badgeClickHandle(i, q)}>
+                      <QuestionBadge.Review title={i + 1} />
+                    </Box>
                   ) : q.status === "review_answered" ? (
-                    <span onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.review_answered title={i + 1} />
-                    </span>
+                    <Box onClick={() => badgeClickHandle(i, q)}>
+                      <QuestionBadge.Answered title={i + 1} />
+                    </Box>
                   ) : (
-                    <span onClick={() => badgeClickHandle(i, q)}>
-                      <QuestionBadge.not_visited title={i + 1} />
-                    </span>
+                    <Box onClick={() => badgeClickHandle(i, q)}>
+                      <QuestionBadge.NotVisited title={i + 1} />
+                    </Box>
                   )}
                 </GridItem>
               ))}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Badge,
-  Box,
   Button,
   Card,
   CardBody,
@@ -19,11 +18,11 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { FaCalendar, FaCheckCircle, FaIdBadge, FaUser } from "react-icons/fa";
+import { FaCheckCircle, FaIdBadge, FaUser } from "react-icons/fa";
 import { AdmitCard, AvatarUpdate } from "../../Components";
 import { Colors, Images } from "../../Constants";
 import { CandidateAction } from "../../State/Actions";
-import ReactPDF, { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 const CandidateScreen = () => {
   const dispatch = useDispatch();
   const { exams } = useSelector((state) => state.System);

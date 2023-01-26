@@ -1,4 +1,3 @@
-import { Center, Heading, Image, Show } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { AdminLogin } from "../Pages/Admin";

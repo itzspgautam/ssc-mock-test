@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { BrowserRouter } from "react-router-dom";
 import { AdminHome, CandidateScreen, ExamScreen } from "../Pages/Admin";
 
 const AdminRoutes = () => {

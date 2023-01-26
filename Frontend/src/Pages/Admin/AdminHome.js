@@ -1,4 +1,4 @@
-import { Box, Card, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { Box, Card, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { Colors } from "../../Constants";
 import { BsNewspaper } from "react-icons/bs";
