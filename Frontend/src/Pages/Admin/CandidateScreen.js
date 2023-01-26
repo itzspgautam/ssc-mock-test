@@ -61,7 +61,7 @@ const CandidateScreen = () => {
 
   return (
     <Center h="100vh" bg={Colors.DARK4}>
-      <Card w="40%">
+      <Card w={["90vw", "80vw", "30vw"]}>
         <CardHeader>
           <Heading textAlign={"center"} size="md">
             {newCandidate ? "REGISTERED" : "REGISTER CANDIDATE"}
@@ -72,14 +72,14 @@ const CandidateScreen = () => {
             <Center gap={5} flexDir="column">
               <FaCheckCircle size="100" color="green" />
               <Text>{newCandidate.name} is registered sucessfully</Text>
-              <PDFViewer>
+              {/* <PDFViewer>
                 <AdmitCard
                   data={newCandidate}
                   exam={exams?.filter(function (e) {
                     return e._id === selectExam;
                   })}
                 />
-              </PDFViewer>
+              </PDFViewer> */}
 
               <PDFDownloadLink
                 document={

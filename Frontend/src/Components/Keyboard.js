@@ -35,8 +35,8 @@ const VirtualKeyboard = ({ setInput, children }) => {
         <ModalContent
           bg={Colors.DARK2}
           position={"fixed"}
-          right="50px"
-          bottom="30px"
+          right={{ lg: "50px" }}
+          bottom={["0px", "0px", "30px"]}
         >
           <ModalHeader p="1">Keyboard</ModalHeader>
           <ModalCloseButton />

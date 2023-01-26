@@ -84,8 +84,19 @@ const LoginScreen = () => {
       height="100vh"
     >
       <GridItem>
-        <Box bg={Colors.DARK1} display="flex" justifyContent={"space-between"}>
-          <Box px="20px" py="2" height={"20vh"} flex={1}>
+        <Box
+          bg={Colors.DARK1}
+          display="flex"
+          justifyContent={"space-between"}
+          flexDir="row"
+        >
+          <Box
+            px="20px"
+            py="2"
+            height={"20vh"}
+            flex={1}
+            display={["none", , "none", "block"]}
+          >
             <Text
               color={Colors.LIGHT_WHITE}
               fontSize="18px"
@@ -112,8 +123,13 @@ const LoginScreen = () => {
               or if the photograph is not yours
             </Text>
           </Box>
-          <Box display={"flex"}>
-            <Box textAlign={"right"} px="4" py="2">
+          <Box
+            display={"flex"}
+            flex="1"
+            justifyContent={["left", "left", "right"]}
+            flexDir={["row-reverse", "row-reverse", "row"]}
+          >
+            <Box textAlign={["left", "left", "right"]} px="4" py="2">
               <Text
                 color={Colors.LIGHT_WHITE}
                 fontSize="18px"

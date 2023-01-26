@@ -49,38 +49,10 @@ const ExamScreen = () => {
   };
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" h="100vh">
-      <GridItem colSpan={3} w="100%" h="100%" bg={Colors.DARK4}>
-        <Box bg={Colors.LIGHT_WHITE} h="100vh" overflowY={"auto"}>
-          <TableContainer>
-            <Table variant="striped" colorScheme="red">
-              {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-              <Thead>
-                <Tr>
-                  <Th>Sl</Th>
-                  <Th>Exam</Th>
-                  <Th>Date</Th>
-                  <Th isNumeric>Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {exams &&
-                  exams.map((e, i) => (
-                    <Tr>
-                      <Td>{i + 1}</Td>
-                      <Td>{e.title}</Td>
-                      <Td>{moment(e.date).format("DD/MM/YYYY")}</Td>
-                      <Td isNumeric>
-                        <Button size="sm">View</Button>
-                      </Td>
-                    </Tr>
-                  ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </GridItem>
-      <GridItem colSpan={2} w="100%" h="100%" bg="blue.500">
+    <Grid
+      templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)"]}
+    >
+      <GridItem bg="blue.500">
         <Center h="100%" p="10">
           <Card w="100%">
             <CardHeader>
@@ -168,6 +140,36 @@ const ExamScreen = () => {
             </CardBody>
           </Card>
         </Center>
+      </GridItem>
+      <GridItem bg={Colors.DARK4}>
+        <Box bg={Colors.LIGHT_WHITE} h="100vh" overflowY={"auto"}>
+          <TableContainer w={["100vw", "100vw", "50vw"]}>
+            <Table variant="striped" colorScheme="red">
+              {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+              <Thead>
+                <Tr>
+                  <Th>Sl</Th>
+                  <Th>Exam</Th>
+                  <Th>Date</Th>
+                  <Th isNumeric>Action</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {exams &&
+                  exams.map((e, i) => (
+                    <Tr>
+                      <Td>{i + 1}</Td>
+                      <Td>{e.title}</Td>
+                      <Td>{moment(e.date).format("DD/MM/YYYY")}</Td>
+                      <Td isNumeric>
+                        <Button size="sm">View</Button>
+                      </Td>
+                    </Tr>
+                  ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Box>
       </GridItem>
     </Grid>
   );

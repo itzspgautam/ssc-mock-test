@@ -53,9 +53,9 @@ const AdmitCard = ({ data, exam }) => {
           >
             <View style={{ flex: 7 }}>
               <Text style={{ marginTop: "10px" }}>Name: {data.name}</Text>
-              <Text style={{ marginTop: "10px" }}>
+              {/* <Text style={{ marginTop: "10px" }}>
                 DOB: {moment(data.dob).format("DD/MM/YY")}
-              </Text>
+              </Text> */}
               <Text style={{ marginTop: "10px" }}>
                 Registration No.: {data.reg}
               </Text>

@@ -42,7 +42,7 @@ const AdminLogin = () => {
       alignItems="center"
       bg={Colors.DARK5}
     >
-      <Card w="25vw">
+      <Card w={["90vw", "80vw", "40vw"]}>
         <CardHeader>
           <Heading textAlign={"center"} size="md">
             ADMIN LOGIN

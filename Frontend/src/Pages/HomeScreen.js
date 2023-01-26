@@ -48,7 +48,7 @@ const HomeScreen = () => {
       alignItems="center"
       bg={Colors.DARK5}
     >
-      <Card w="25vw">
+      <Card w={["90vw", "80vw", "30vw"]}>
         <CardHeader>
           <Heading textAlign={"center"} size="md">
             SSC EXAM PORTAL

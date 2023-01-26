@@ -18,7 +18,7 @@ function App() {
 
   return (
     <>
-      <Center
+      {/* <Center
         display={{ base: "flex", md: "flex", lg: "none" }}
         h="100vh"
         justifyContent={"center"}
@@ -30,8 +30,8 @@ function App() {
         <Text color={"red.700"} fontFamily="arial" fontWeight={"bold"}>
           UNSUPPORTED DEVICE
         </Text>
-      </Center>
-      <Box display={{ base: "none", md: "none", lg: "block" }}>
+      </Center> */}
+      <Box>
         {appLoading ? (
           <Center h="80vh">
             <Spinner

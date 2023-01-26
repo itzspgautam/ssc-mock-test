@@ -7,7 +7,10 @@ import { Link } from "react-router-dom";
 const AdminHome = () => {
   return (
     <Box h="100vh" w="100vw" bg={Colors.DARK4} p="10">
-      <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+      <Grid
+        templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(4, 1fr)"]}
+        gap={6}
+      >
         <GridItem w="100%" h="60">
           <Link to="/admin/exam">
             <Card

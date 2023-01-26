@@ -90,7 +90,7 @@ const AssignCandidateScreen = () => {
       alignItems="center"
       bg={Colors.DARK5}
     >
-      <Card w="25vw" overflow={"hidden"}>
+      <Card w={["90vw", "80vw", "30vw"]} overflow={"hidden"}>
         <Box bg="teal.600" p="2">
           <Heading textAlign={"center"} color="white" size="lg">
             {logSystem?.name?.toUpperCase()}

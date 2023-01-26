@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardHeader,
   Center,
@@ -9,13 +10,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { QuestionBadge } from "../Components";
 
 const QuestionSubmittedScreen = () => {
   const { answers } = useSelector((state) => state.Quiz);
   return (
     <Center h="100vh">
-      <Card w={"50vw"} overflow="hidden">
+      <Card w={["90vw", "80vw", "50vw"]} overflow="hidden">
         <CardHeader bg="whatsapp.600" textAlign={"center"}>
           <Text fontSize={"23"} fontWeight="bold" color="white">
             Answeres submitted successfully!
@@ -75,7 +77,13 @@ const QuestionSubmittedScreen = () => {
             </Text>
           </GridItem>
 
-          <GridItem w="100%" display="flex" alignItems={"center"} gap="2">
+          <GridItem
+            w="100%"
+            display="flex"
+            alignItems={"center"}
+            gap="2"
+            colSpan={2}
+          >
             <QuestionBadge.review_answered
               title={
                 answers?.filter(function (q) {
@@ -88,6 +96,11 @@ const QuestionSubmittedScreen = () => {
             </Text>
           </GridItem>
         </Grid>
+        <Link to="/">
+          <Button w="100%" colorScheme={"green"} mx="4" my="4">
+            Logout
+          </Button>
+        </Link>
       </Card>
     </Center>
   );

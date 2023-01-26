@@ -136,7 +136,7 @@ const QuestionScreen = () => {
 
   useEffect(() => {
     if (questions) return;
-    dispatch(QuestionAction.getQuestion(assignCandidate?.candidate?.exam?._id));
+    dispatch(QuestionAction.getQuestion(assignCandidate?.exam?._id));
   }, [assignCandidate]);
 
   useEffect(() => {
@@ -153,12 +153,23 @@ const QuestionScreen = () => {
 
   return (
     <Grid
-      templateAreas={`"header header"
-                  "category user"
+      templateAreas={[
+        `"header header" 
+                  "user user"
+                  "question question"
+                  "info info"
+                  "footer footer"`,
+        `"header header" "user user"
+                  "question question"
+                  "info info"
+                  "footer footer"`,
+        `"header header"
+                  "question user"
                   "question info"
-                  "footer footer"`}
-      gridTemplateRows={"30px 100px 1fr "}
-      gridTemplateColumns={"80vw 1fr"}
+                  "footer footer"`,
+      ]}
+      gridTemplateRows={"30px  1fr "}
+      gridTemplateColumns={["100vw 1fr", "70vw 1fr", "80vw 1fr"]}
       h="100vh"
       color="blackAlpha.700"
       fontFamily={"arial"}
@@ -186,25 +197,8 @@ const QuestionScreen = () => {
           Instructions
         </Text>
       </GridItem>
-      <GridItem pl="2" area={"user"} display="flex" alignItems="center">
-        <Flex gap={2}>
-          <Image
-            src={assignCandidate?.avatar}
-            border="1px solid"
-            borderColor={Colors.DARK3}
-            height="90px"
-          />
-          <Text
-            color={Colors.DARK_BLACK}
-            fontWeight={"bold"}
-            fontFamily="arial"
-            fontSize={"20"}
-          >
-            {assignCandidate?.name}
-          </Text>
-        </Flex>
-      </GridItem>
-      <GridItem area={"question"} rowSpan="2">
+
+      <GridItem area={"question"} pb={["10", "0", "0"]}>
         <Text
           p="2"
           fontFamily={"arial"}
@@ -240,13 +234,13 @@ const QuestionScreen = () => {
           </Select>
         </Flex>
         <Flex flexDir={"column"}>
-          <Box h="490" overflowY={"auto"}>
+          <Box h={{ lg: "490" }} overflowY={"auto"}>
             {questions?.map((ques, i) => (
               <Box id={ques._id}>
                 {ques._id === activeQuestion.question && (
                   <Box
                     p="1"
-                    h="480"
+                    h={["350", "350", "480"]}
                     borderBottom={"1px solid"}
                     borderColor={Colors.DARK3}
                   >
@@ -299,12 +293,14 @@ const QuestionScreen = () => {
           </Box>
           <Flex
             justifyContent={"space-between"}
-            px="2"
-            h="65px"
             alignItems={"center"}
+            flexDir={["column-reverse", "column-reverse", "row"]}
+            gap="4"
+            p="4"
           >
             <Flex gap={2}>
               <Button
+                w="100%"
                 variant="outline"
                 colorScheme={"gray"}
                 fontFamily={"arial"}
@@ -320,6 +316,7 @@ const QuestionScreen = () => {
                 Mark for Review & Next
               </Button>
               <Button
+                w="100%"
                 variant="outline"
                 colorScheme={"gray"}
                 fontFamily={"arial"}
@@ -336,6 +333,7 @@ const QuestionScreen = () => {
               </Button>
             </Flex>
             <Button
+              w="100%"
               colorScheme={"blue"}
               fontFamily={"arial"}
               fontWeight="regular"
@@ -352,7 +350,35 @@ const QuestionScreen = () => {
           </Flex>
         </Flex>
       </GridItem>
-      <GridItem area={"info"} border="2px solid">
+
+      <GridItem
+        pl="2"
+        area={"user"}
+        display="flex"
+        alignItems="center"
+        border={"1px solid grey"}
+        borderBottom="0px"
+        h="100"
+      >
+        <Flex gap={2}>
+          <Image
+            src={assignCandidate?.avatar}
+            border="1px solid"
+            borderColor={Colors.DARK3}
+            height="90px"
+          />
+          <Text
+            color={Colors.DARK_BLACK}
+            fontWeight={"bold"}
+            fontFamily="arial"
+            fontSize={"20"}
+          >
+            {assignCandidate?.name}
+          </Text>
+        </Flex>
+      </GridItem>
+
+      <GridItem area={"info"} border="1px solid grey">
         <Box p="2">
           <Grid templateColumns="repeat(2, 1fr)" gap={1}>
             <GridItem display={"flex"} gap="1">
@@ -435,7 +461,7 @@ const QuestionScreen = () => {
           </Text>
         </Box>
         <Flex flexDir="column">
-          <Box height={280} overflowY="auto">
+          <Box height={{ md: "280", lg: "280" }} overflowY="auto">
             <Grid templateColumns="repeat(5, 1fr)" gap={0} mt="2" px="2">
               {answers?.map((q, i) => (
                 <GridItem key={q._id}>
@@ -464,8 +490,9 @@ const QuestionScreen = () => {
               ))}
             </Grid>
           </Box>
-          <Flex py="3" justifyContent={"center"} alignItems="center">
+          <Box p="3" justifyContent={"center"} alignItems="center">
             <Button
+              w="100%"
               size={"md"}
               borderRadius={2}
               colorScheme={"blue"}
@@ -477,9 +504,10 @@ const QuestionScreen = () => {
             >
               Submit
             </Button>
-          </Flex>
+          </Box>
         </Flex>
       </GridItem>
+
       <GridItem area={"footer"}>
         <VersionFooter />
       </GridItem>
