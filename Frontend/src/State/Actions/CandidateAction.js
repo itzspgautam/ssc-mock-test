@@ -66,10 +66,16 @@ const createCandidate = (data) => async (dispatch) => {
     return;
   }
   dispatch({ type: types.AVATAR_UPLOAD_REQ });
-  console.log(data);
   try {
-    const register = await axios.post("/api/v1/admin/candidate/register", data);
-    console.log(register);
+    const register = await axios.post(
+      "/api/v1/admin/candidate/register",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin_token")}`,
+        },
+      }
+    );
     dispatch({
       type: types.REGISTER_CANDIDATE,
       payload: register.data.candidate,

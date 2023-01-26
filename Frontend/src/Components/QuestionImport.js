@@ -11,7 +11,6 @@ export const QuestionImport = ({ setQuestion }) => {
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
-        // console.log(json);
         let ques = [];
         await json.forEach((q) => {
           ques.push({
@@ -48,7 +47,6 @@ export const QuestionImport = ({ setQuestion }) => {
             ],
           });
         });
-        console.log(ques);
         setQuestion(ques);
       };
       reader.readAsArrayBuffer(e.target.files[0]);

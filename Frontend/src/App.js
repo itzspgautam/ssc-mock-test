@@ -1,13 +1,25 @@
-import { Box, Center, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { FaLaptop } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import AppRoutes from "./Routes";
+import { SystemAction } from "./State/Actions";
 
 function App() {
+  const { appLoading } = useSelector((state) => state.System);
+  const dispatch = useDispatch();
+  const appStart = async () => {
+    await dispatch(SystemAction.appStart());
+  };
+
+  useEffect(() => {
+    appStart();
+  }, []);
+
   return (
     <>
       <Center
-        display={{ base: "none", md: "none", lg: "none" }}
+        display={{ base: "flex", md: "flex", lg: "none" }}
         h="100vh"
         justifyContent={"center"}
         alignItems="center"
@@ -19,8 +31,20 @@ function App() {
           UNSUPPORTED DEVICE
         </Text>
       </Center>
-      <Box display={{ base: "block", md: "block", lg: "block" }}>
-        <AppRoutes />
+      <Box display={{ base: "none", md: "none", lg: "block" }}>
+        {appLoading ? (
+          <Center h="80vh">
+            <Spinner
+              size={"xl"}
+              color={"teal"}
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+            />
+          </Center>
+        ) : (
+          <AppRoutes />
+        )}
       </Box>
     </>
   );

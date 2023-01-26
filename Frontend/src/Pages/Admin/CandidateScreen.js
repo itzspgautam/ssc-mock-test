@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { FaCalendar, FaCheckCircle, FaUser } from "react-icons/fa";
+import { FaCalendar, FaCheckCircle, FaIdBadge, FaUser } from "react-icons/fa";
 import { AdmitCard, AvatarUpdate } from "../../Components";
 import { Colors, Images } from "../../Constants";
 import { CandidateAction } from "../../State/Actions";
@@ -31,22 +31,16 @@ const CandidateScreen = () => {
     useSelector((state) => state.Candidate);
 
   const [name, setName] = useState("");
+  const [reg, setReg] = useState("");
   const [dob, setDob] = useState("");
   const [selectExam, setSelectExam] = useState("");
 
   const registerHandle = () => {
-    // console.log(
-    //   "Exam: ",
-    //   exams?.filter(function (e) {
-    //     return e._id === selectExam;
-    //   })
-    // );
-
     if (!uploadedImage) {
       alert("Please upload image");
       return;
     }
-    const reg = moment(new Date()).format("DDMMYYYYHHmmSS");
+    //const reg = moment(new Date()).format("DDMMYYYYHHmmSS");
     dispatch(
       CandidateAction.createCandidate({
         name,
@@ -128,6 +122,19 @@ const CandidateScreen = () => {
                   placeholder="Candidate Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                />
+              </InputGroup>
+
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<FaIdBadge color="gray.300" />}
+                />
+                <Input
+                  type="number"
+                  placeholder="Registration Number"
+                  value={reg}
+                  onChange={(e) => setReg(e.target.value)}
                 />
               </InputGroup>
 

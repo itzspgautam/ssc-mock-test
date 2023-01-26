@@ -74,7 +74,7 @@ const HomeScreen = () => {
                 children={<FaLock color="gray.300" />}
               />
               <Input
-                type=""
+                type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

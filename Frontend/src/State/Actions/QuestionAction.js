@@ -29,7 +29,7 @@ const getQuestion = (exam) => async (dispatch) => {
       },
     });
   } catch (error) {
-    console.log(error.response.data.message);
+    console.warn(error.response.data.message);
   }
 };
 
@@ -38,7 +38,6 @@ const setAnswer = (index, question, answer, status) => async (dispatch) => {
     type: types.SET_ANSWER,
     payload: { index, question, answer, status },
   });
-  console.log("Dispatched", index, question, answer, status);
 };
 
 const setActiveQuestion = (questionId, index) => async (dispatch) => {
@@ -50,11 +49,19 @@ const setActiveQuestion = (questionId, index) => async (dispatch) => {
 
 const submitAnswer = (exam, candidate, answered) => async (dispatch) => {
   try {
-    const submitRes = await axios.post("/api/v1/answer/submit", {
-      exam,
-      candidate,
-      answered,
-    });
+    const submitRes = await axios.post(
+      "/api/v1/answer/submit",
+      {
+        exam,
+        candidate,
+        answered,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     if (submitRes) {
       await localStorage.removeItem("assignCandidateToken");
       await localStorage.removeItem("assignCandidate");
@@ -63,7 +70,7 @@ const submitAnswer = (exam, candidate, answered) => async (dispatch) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };
 

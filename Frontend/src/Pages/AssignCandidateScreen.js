@@ -42,7 +42,9 @@ const AssignCandidateScreen = () => {
   const [error, setError] = useState("");
 
   const fetchCandidate = async () => {
+    setCandidate(null);
     setLoading(true);
+    setError("");
     try {
       const candidateRes = await axios.get(
         "/api/v1/system/candidate?reg=" + reg
@@ -56,7 +58,6 @@ const AssignCandidateScreen = () => {
         setLoading(false);
         return;
       }
-      console.log(candidateRes);
       setCandidate(candidateRes.data.candidate);
       setError("");
       setLoading(false);
@@ -89,13 +90,17 @@ const AssignCandidateScreen = () => {
       alignItems="center"
       bg={Colors.DARK5}
     >
-      <Card w="25vw">
+      <Card w="25vw" overflow={"hidden"}>
+        <Box bg="teal.600" p="2">
+          <Heading textAlign={"center"} color="white" size="lg">
+            {logSystem?.name?.toUpperCase()}
+          </Heading>
+        </Box>
         <CardHeader>
           <Heading textAlign={"center"} size="md">
             ASSIGN CANDIDATE
           </Heading>
         </CardHeader>
-
         <CardBody>
           <Stack spacing={5}>
             <InputGroup>
@@ -108,7 +113,6 @@ const AssignCandidateScreen = () => {
                 placeholder="Registration Number"
                 value={reg}
                 onChange={(e) => setReg(e.target.value)}
-                onBlur={() => fetchCandidate()}
               />
               <InputRightAddon
                 cursor={"pointer"}

@@ -11,20 +11,10 @@ import {
   QuestionScreen,
   QuestionSubmittedScreen,
 } from "../Pages";
-import { SystemAction } from "../State/Actions";
 import AdminProtected from "./AdminProtectedRoute";
 import AdminRoutes from "./AdminRoutes";
 
 const AppRoutes = () => {
-  const dispatch = useDispatch();
-  const appStart = async () => {
-    await dispatch(SystemAction.appStart());
-  };
-
-  useEffect(() => {
-    appStart();
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>

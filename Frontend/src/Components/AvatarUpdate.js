@@ -58,7 +58,7 @@ const AvatarUpdate = (props) => {
       );
       Dispatch(CandidateAction.updateAvatar(croppedImage));
     } catch (e) {
-      console.error(e);
+      console.warn(e);
     }
   }, [croppedAreaPixels, rotation, image, Dispatch]);
 

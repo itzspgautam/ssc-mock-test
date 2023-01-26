@@ -20,8 +20,6 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const AdmitCard = ({ data, exam }) => {
-  console.log(data);
-  console.log(exam);
   return (
     <Document>
       <Page size="A4" style={styles.page}>

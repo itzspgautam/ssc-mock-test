@@ -10,13 +10,23 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { VersionFooter } from "../Components";
 import { Colors, Images } from "../Constants";
+import { QuestionAction } from "../State/Actions";
 
 const InstructionScreen = () => {
+  const dispatch = useDispatch();
+  const { assignCandidate } = useSelector((state) => state.System);
   const [insLang, setInsLang] = useState("english");
+
+  useEffect(() => {
+    if (assignCandidate) {
+      dispatch(QuestionAction.getQuestion(assignCandidate?.exam?._id));
+    }
+  }, [assignCandidate]);
 
   return (
     <Grid

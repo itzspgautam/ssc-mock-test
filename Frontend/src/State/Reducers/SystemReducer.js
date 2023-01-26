@@ -1,6 +1,7 @@
 import { SystemAction } from "../Actions";
 
 const initialState = {
+  appLoading: true,
   systems: null,
   exams: null,
   logSystem: null,
@@ -16,6 +17,12 @@ const initialState = {
 
 const SystemReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SystemAction.types.APP_LOADING:
+      return {
+        ...state,
+        appLoading: action.payload,
+      };
+
     case SystemAction.types.GET_SYSTEMS:
       return {
         ...state,

@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../../Constants";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminAction } from "../../State/Actions";
 
@@ -54,7 +54,7 @@ const AdminLogin = () => {
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
-                children={<FaLock color="gray.300" />}
+                children={<FaUser color="gray.300" />}
               />
               <Input
                 type=""
@@ -69,7 +69,7 @@ const AdminLogin = () => {
                 children={<FaLock color="gray.300" />}
               />
               <Input
-                type=""
+                type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

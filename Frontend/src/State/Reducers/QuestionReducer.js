@@ -19,7 +19,6 @@ const QuestionReducer = (state = initialState, action) => {
 
     case QuestionAction.types.SET_ANSWER:
       //state.answers.push(action.payload);
-      console.log(action.payload);
       state.answers[action.payload.index] = {
         question: action.payload.question,
         answer: action.payload.answer,

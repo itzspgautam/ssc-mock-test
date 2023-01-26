@@ -49,11 +49,11 @@ const LoginScreen = () => {
     let m = password.substring(2, 4);
     let y = password.substring(4, 8);
     let PasswordToDate = d + "/" + m + "/" + y;
-    if (parseInt(userName) !== assignCandidate?.candidate?.reg) {
+    if (parseInt(userName) !== assignCandidate?.reg) {
       setError("Invalid registration number.");
       return;
     }
-    let enteredPassword = moment(assignCandidate?.candidate?.birthdate).format(
+    let enteredPassword = moment(assignCandidate?.birthdate).format(
       "DD/MM/YYYY"
     );
 
@@ -62,13 +62,8 @@ const LoginScreen = () => {
       return;
     }
     setError("");
-    await localStorage.setItem(
-      "assignCandidateToken",
-      assignCandidate.candidate._id
-    );
-    await dispatch(
-      QuestionAction.getQuestion(assignCandidate.candidate.exam._id)
-    );
+    await localStorage.setItem("assignCandidateToken", assignCandidate._id);
+    await dispatch(QuestionAction.getQuestion(assignCandidate?.exam?._id));
     navigate("/instruction");
   };
 
@@ -134,7 +129,7 @@ const LoginScreen = () => {
                 overflow={"hidden"}
                 textOverflow="ellipsis"
               >
-                {assignCandidate?.candidate?.name}
+                {assignCandidate?.name}
               </Text>
 
               <Text
@@ -158,7 +153,7 @@ const LoginScreen = () => {
               borderBottom="1px solid"
             >
               <Image
-                src={assignCandidate?.candidate?.avatar}
+                src={assignCandidate?.avatar}
                 h="101"
                 w="94"
                 border="1px solid"
@@ -203,7 +198,7 @@ const LoginScreen = () => {
                     value={userName}
                     bgColor={"transparent"}
                     borderColor={Colors.DARK3}
-                    // readOnly
+                    readOnly
                     onChange={(e) => setUserName(e.target.value)}
                     _focus={{ borderColor: Colors.DARK3 }}
                   />
@@ -232,7 +227,7 @@ const LoginScreen = () => {
                     value={password}
                     bgColor={"transparent"}
                     borderColor={Colors.DARK3}
-                    //readOnly
+                    readOnly
                     onChange={(e) => setPassword(e.target.value)}
                     _focus={{ borderColor: Colors.DARK3 }}
                   />
@@ -282,7 +277,6 @@ const LoginScreen = () => {
         <VirtualKeyboard />
       </GridItem>
       <GridItem>
-        <QuestionImport />
         <VersionFooter />
       </GridItem>
     </Grid>

@@ -31,14 +31,23 @@ const QuestionScreen = () => {
   const [selectOption, setSelectOption] = useState(null);
 
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 60 * 90);
+  time.setSeconds(time.getSeconds() + 60 * assignCandidate?.exam?.duration);
 
   const saveAndNext = async () => {
-    const nextQuestionIndex = activeQuestion.index + 1;
-    const nextQuestionId = questions[nextQuestionIndex]._id;
-    const nextQuestionAnswer = answers[nextQuestionIndex].answer
-      ? answers[nextQuestionIndex].answer
-      : null;
+    const nextQuestionIndex =
+      activeQuestion.index === questions.length - 1
+        ? 0
+        : activeQuestion.index + 1;
+
+    const nextQuestionId =
+      nextQuestionIndex === questions.length
+        ? questions[0]._id
+        : questions[nextQuestionIndex]._id;
+
+    const nextQuestionAnswer =
+      nextQuestionIndex === questions.length
+        ? answers[0].answer
+        : answers[nextQuestionIndex].answer;
 
     const activeQuestionIndex = activeQuestion.index;
     const activeQuestionId = activeQuestion.question;
@@ -60,11 +69,24 @@ const QuestionScreen = () => {
   };
 
   const markAndReview = async () => {
-    const nextQuestionIndex = activeQuestion.index + 1;
-    const nextQuestionId = questions[nextQuestionIndex]._id;
+    const nextQuestionIndex =
+      activeQuestion.index === questions.length - 1
+        ? 0
+        : activeQuestion.index + 1;
+
+    const nextQuestionId =
+      nextQuestionIndex === questions.length
+        ? questions[0]._id
+        : questions[nextQuestionIndex]._id;
+
+    const nextQuestionAnswer =
+      nextQuestionIndex === questions.length
+        ? answers[0].answer
+        : answers[nextQuestionIndex].answer;
 
     const activeQuestionIndex = activeQuestion.index;
     const activeQuestionId = activeQuestion.question;
+
     const activeQuestionStatus = selectOption ? "review_answered" : "review";
 
     await dispatch(
@@ -78,7 +100,7 @@ const QuestionScreen = () => {
     dispatch(
       QuestionAction.setActiveQuestion(nextQuestionId, nextQuestionIndex)
     );
-    setSelectOption(null);
+    setSelectOption(nextQuestionAnswer);
   };
 
   const badgeClickHandle = (index, answered) => {
@@ -105,8 +127,8 @@ const QuestionScreen = () => {
   const submitHandle = async () => {
     await dispatch(
       QuestionAction.submitAnswer(
-        assignCandidate?.candidate?.exam?._id,
-        assignCandidate?.candidate?._id,
+        assignCandidate?.exam?._id,
+        assignCandidate?._id,
         answers
       )
     );
@@ -151,7 +173,7 @@ const QuestionScreen = () => {
         alignItems={"center"}
       >
         <Text color={Colors.TEXT_YELLOW} fontSize={14}>
-          {assignCandidate?.candidate?.exam?.title}
+          {assignCandidate?.exam?.title}
         </Text>
         <Text
           color={Colors.LIGHT_WHITE}
@@ -164,11 +186,10 @@ const QuestionScreen = () => {
           Instructions
         </Text>
       </GridItem>
-      <GridItem pl="2" bg="green.300" area={"category"}></GridItem>
       <GridItem pl="2" area={"user"} display="flex" alignItems="center">
         <Flex gap={2}>
           <Image
-            src={assignCandidate?.candidate?.avatar}
+            src={assignCandidate?.avatar}
             border="1px solid"
             borderColor={Colors.DARK3}
             height="90px"
@@ -179,13 +200,13 @@ const QuestionScreen = () => {
             fontFamily="arial"
             fontSize={"20"}
           >
-            {assignCandidate?.candidate?.name}
+            {assignCandidate?.name}
           </Text>
         </Flex>
       </GridItem>
-      <GridItem area={"question"}>
+      <GridItem area={"question"} rowSpan="2">
         <Text
-          p="1"
+          p="2"
           fontFamily={"arial"}
           fontSize={14}
           color={Colors.DARK_BLACK}
@@ -193,9 +214,8 @@ const QuestionScreen = () => {
           display={"flex"}
           justifyContent="space-between"
         >
-          Question Type: MCQ {selectOption} selected for Question Index:
-          {activeQuestion.index}
-          <MyTimer expiryTimestamp={time} />
+          Question Type: MCQ
+          <MyTimer expiryTimestamp={time} submitHandle={submitHandle} />
         </Text>
 
         <Flex
@@ -220,13 +240,13 @@ const QuestionScreen = () => {
           </Select>
         </Flex>
         <Flex flexDir={"column"}>
-          <Box h="420" overflowY={"auto"}>
+          <Box h="490" overflowY={"auto"}>
             {questions?.map((ques, i) => (
               <Box id={ques._id}>
                 {ques._id === activeQuestion.question && (
                   <Box
                     p="1"
-                    h="420"
+                    h="480"
                     borderBottom={"1px solid"}
                     borderColor={Colors.DARK3}
                   >
@@ -252,6 +272,7 @@ const QuestionScreen = () => {
                         {lang === "english"
                           ? ques.title.english
                           : ques.title.hindi}
+
                         {/* {lang === "english" ? q.title.english : q.title.hindi} */}
                       </Text>
 
@@ -410,7 +431,7 @@ const QuestionScreen = () => {
         </Box>
         <Box p="1" bgColor={Colors.BUTTON_SECONDARY}>
           <Text color={Colors.LIGHT_WHITE} fontWeight="bold">
-            Category
+            Questions
           </Text>
         </Box>
         <Flex flexDir="column">

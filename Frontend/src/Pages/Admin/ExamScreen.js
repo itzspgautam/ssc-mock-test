@@ -27,8 +27,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Colors } from "../../Constants";
 import moment from "moment";
-import { FaLock } from "react-icons/fa";
-import { BsNewspaper } from "react-icons/bs";
+import { FaCalendar, FaLock } from "react-icons/fa";
+import { BsAlarm, BsNewspaper } from "react-icons/bs";
 import { QuestionImport } from "../../Components";
 import { useState } from "react";
 import { SystemAction } from "../../State/Actions";
@@ -40,11 +40,12 @@ const ExamScreen = () => {
   );
 
   const [title, setTitle] = useState("");
+  const [duration, setDuration] = useState("");
   const [date, setDate] = useState("");
   const [question, setQuestion] = useState("");
 
   const createExamHandle = () => {
-    dispatch(SystemAction.createExam(title, date, question));
+    dispatch(SystemAction.createExam(title, date, duration, question));
   };
 
   return (
@@ -107,10 +108,23 @@ const ExamScreen = () => {
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </InputGroup>
+
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents="none"
-                      children={<FaLock color="gray.300" />}
+                      children={<BsAlarm color="gray.300" />}
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Exam Duration (in minutes)"
+                      value={duration}
+                      onChange={(e) => setDuration(e.target.value)}
+                    />
+                  </InputGroup>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<FaCalendar color="gray.300" />}
                     />
                     <Input
                       type="date"
@@ -123,8 +137,23 @@ const ExamScreen = () => {
                   <Box border="1px" borderColor={Colors.DARK2}>
                     Select question excel file
                     <QuestionImport setQuestion={setQuestion} />
+                    <a
+                      href="https://res.cloudinary.com/dtpspzd66/raw/upload/v1674682413/Excel/Demo_Questions_igl9ix.xlsx"
+                      download
+                    >
+                      <Text
+                        p="1"
+                        textAlign={"right"}
+                        fontSize="13"
+                        fontWeight={"bold"}
+                        fontFamily="arial"
+                        color={"blue.500"}
+                        cursor="pointer"
+                      >
+                        Download Demo
+                      </Text>
+                    </a>
                   </Box>
-
                   <Text color={"red"} fontSize="14" fontWeight={"medium"}>
                     {error && error}
                   </Text>

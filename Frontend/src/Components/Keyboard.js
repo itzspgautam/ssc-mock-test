@@ -22,9 +22,9 @@ const VirtualKeyboard = ({ setInput, children }) => {
     setInput(input);
   };
 
-  const onKeyPress = (button) => {
-    console.log("Button pressed", button);
-  };
+  // const onKeyPress = (button) => {
+  //   console.log("Button pressed", button);
+  // };
 
   return (
     <>

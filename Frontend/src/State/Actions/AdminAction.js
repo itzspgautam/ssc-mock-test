@@ -29,7 +29,6 @@ const adminLogin = (id, password) => async (dispatch) => {
       payload: loginRes.data.admin,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: types.SET_ERROR,
       payload: error.response.data.message,
