@@ -144,9 +144,15 @@ const InstructionScreen = () => {
           </Flex>
         </Flex>
       </GridItem>
-      <GridItem area={"user"}>
-        <Flex justifyContent={"center"} p="8">
-          <Image src={assignCandidate?.avatar} h="200" w="150" />
+      <GridItem area={"user"} w={["100vw", "100vw", "20vw"]}>
+        <Flex justifyContent={"center"} p="8" flexDir={"column"}>
+          <Image src={assignCandidate?.avatar} h="300" />
+          <Text fontWeight={"bold"} fontSize="20">
+            Name: {assignCandidate?.name}
+          </Text>
+          <Text fontWeight={"bold"} fontSize="12">
+            Reg. No- {assignCandidate?.reg}
+          </Text>
         </Flex>
       </GridItem>
       <GridItem area={"footer"}>

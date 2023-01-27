@@ -367,14 +367,24 @@ const QuestionScreen = () => {
             borderColor={Colors.DARK3}
             height="90px"
           />
-          <Text
-            color={Colors.DARK_BLACK}
-            fontWeight={"bold"}
-            fontFamily="arial"
-            fontSize={"20"}
-          >
-            {assignCandidate?.name}
-          </Text>
+          <Box>
+            <Text
+              color={Colors.DARK_BLACK}
+              fontWeight={"bold"}
+              fontFamily="arial"
+              fontSize={"20"}
+            >
+              {assignCandidate?.name}
+            </Text>
+            <Text
+              color={Colors.DARK_BLACK}
+              fontWeight={"bold"}
+              fontFamily="arial"
+              fontSize={"12"}
+            >
+              Registration no.:{assignCandidate?.reg}
+            </Text>
+          </Box>
         </Flex>
       </GridItem>
 
