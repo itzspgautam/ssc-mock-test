@@ -113,15 +113,6 @@ const QuestionScreen = () => {
     dispatch(
       QuestionAction.setActiveQuestion(clickedQuestionId, clickedQuestionIndex)
     );
-
-    // setSelectOption(answer.answer);
-
-    // setSelectedQuestion({
-    //   i: i,
-    //   question: answer.questions,
-    //   answer: answer.answer,
-    //   status: answer.status,
-    // });
   };
 
   const submitHandle = async () => {

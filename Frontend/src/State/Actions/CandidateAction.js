@@ -15,7 +15,7 @@ const updateAvatar = (cropedAvatar) => async (dispatch) => {
   try {
     const formData = new FormData();
     formData.append("file", cropedAvatar);
-    formData.append("upload_preset", "onlineexamdesk");
+    formData.append("upload_preset", Api.CLOUDINARY_PRESET);
 
     const config = {
       onUploadProgress: function (progressEvent) {

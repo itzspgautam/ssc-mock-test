@@ -7,11 +7,12 @@ const CandidateModel = require("../Models/CandidateModel");
 const ExamModel = require("../Models/ExamModel");
 
 exports.createExam = catchAsyncError(async (req, res, next) => {
-  const { title, date } = req.body;
+  const { title, date, duration } = req.body;
   try {
     const exam = await ExamModel.create({
       title,
       date,
+      duration,
     });
 
     res.status(201).json({

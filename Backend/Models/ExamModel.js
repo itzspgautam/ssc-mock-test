@@ -9,6 +9,14 @@ const ExamSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("exam", ExamSchema);

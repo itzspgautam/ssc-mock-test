@@ -29,6 +29,11 @@ const candidateSchema = mongoose.Schema({
     type: String,
     default: "user",
   },
+
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("candidate", candidateSchema);

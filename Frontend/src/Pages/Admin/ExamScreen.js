@@ -43,6 +43,7 @@ const ExamScreen = () => {
   const [question, setQuestion] = useState("");
 
   const createExamHandle = () => {
+    console.log(duration);
     dispatch(SystemAction.createExam(title, date, duration, question));
   };
 
@@ -155,7 +156,7 @@ const ExamScreen = () => {
               <Tbody>
                 {exams &&
                   exams.map((e, i) => (
-                    <Tr>
+                    <Tr key={i}>
                       <Td>{i + 1}</Td>
                       <Td>{e.title}</Td>
                       <Td>{moment(e.date).format("DD/MM/YYYY")}</Td>

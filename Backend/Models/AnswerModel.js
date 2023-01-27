@@ -24,6 +24,11 @@ const answerSchema = new mongoose.Schema({
       status: { type: String },
     },
   ],
+
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("answer", answerSchema);

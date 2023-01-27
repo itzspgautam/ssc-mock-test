@@ -10,7 +10,17 @@ const types = {
 
 const getQuestion = (exam) => async (dispatch) => {
   try {
-    const questionsResponse = await axios.get("/api/v1/questions?exam=" + exam);
+    const token = await localStorage.getItem("token");
+    console.log(token);
+    const questionsResponse = await axios.post(
+      "/api/v1/getquestions",
+      { exam },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     let answers = [];
     questionsResponse.data.questions.map((e) =>
       answers.push({ question: e._id, answer: null, status: "not_visited" })

@@ -64,7 +64,6 @@ exports.tokenVerification = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Token", 400));
   }
   let tokenToVerify = req.headers.authorization.split(" ")[1];
-  console.log(tokenToVerify);
 
   verifyToken(tokenToVerify)
     .then(async (token) => {
@@ -77,7 +76,6 @@ exports.tokenVerification = catchAsyncError(async (req, res, next) => {
         .json({ success: true, token: req.headers.authorization, admin });
     })
     .catch((error) => {
-      console.log(error);
       return next(new ErrorHandler("Token expired! Please login again.", 401));
     });
 });

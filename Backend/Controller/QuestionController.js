@@ -44,7 +44,6 @@ const ErrorHandler = require("../Utils/errorHandler");
 // });
 
 exports.createQuestion = catchAsyncError(async (req, res, next) => {
-  console.log(req.body);
   try {
     const question = await await QuestionModel.create(req.body);
 
@@ -58,8 +57,7 @@ exports.createQuestion = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getQuestion = catchAsyncError(async (req, res, next) => {
-  exam = req.query.exam;
-  console.log(exam);
+  exam = req.body.exam;
   try {
     const questions = await QuestionModel.find({ exam });
     res.status(201).json({
@@ -72,7 +70,6 @@ exports.getQuestion = catchAsyncError(async (req, res, next) => {
 });
 
 exports.submitAnswer = catchAsyncError(async (req, res, next) => {
-  console.log(req.body);
   try {
     const answers = await AnswerModel.create(req.body);
     res.status(201).json({

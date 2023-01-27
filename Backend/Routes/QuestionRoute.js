@@ -7,13 +7,14 @@ const {
   submitAnswer,
   getSubmittedAnswer,
 } = require("../Controller/QuestionController");
+const { systemAuth, adminAuth } = require("../Middleware/auth");
 const router = express.Router();
 
-router.route("/question").post(createQuestion);
+router.route("/question").post(adminAuth, createQuestion);
 
-router.route("/questions").get(getQuestion);
+router.route("/getquestions").post(systemAuth, getQuestion);
 
-router.route("/answer/submit").post(submitAnswer);
+router.route("/answer/submit").post(systemAuth, submitAnswer);
 router.route("/answer/submition").get(getSubmittedAnswer);
 
 module.exports = router;
