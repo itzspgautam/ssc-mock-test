@@ -1,4 +1,5 @@
 import { Colors } from "./Colors";
 import { Images } from "./Images";
 import { MyTimer } from "./Timer";
-export { Colors, Images, MyTimer };
+import { Api } from "./Apis";
+export { Colors, Images, MyTimer, Api };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Api } from "../../Constants";
 const types = {
   AVATAR_UPLOAD_REQ: "AVATAR_UPLOAD_REQ",
   AVATAR_UPLOAD: "AVATAR_UPLOAD",
@@ -24,11 +25,7 @@ const updateAvatar = (cropedAvatar) => async (dispatch) => {
       },
     };
 
-    const imageUpload = await axios.post(
-      "https://api.cloudinary.com/v1_1/dtpspzd66/upload",
-      formData,
-      config
-    );
+    const imageUpload = await axios.post(Api.CLOUDINARY, formData, config);
     dispatch({ type: types.AVATAR_UPLOAD, payload: imageUpload });
   } catch (error) {
     dispatch({

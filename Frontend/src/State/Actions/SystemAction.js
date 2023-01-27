@@ -73,13 +73,12 @@ const appStart = () => async (dispatch) => {
 const verifySystemToken = async (token) => {
   if (!token) return { status: false, message: "Please provide token." };
   try {
-    let tokenResponse = await axios.post(
-      "/api/v1/system/verify",
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    let tokenResponse = await axios.post("/api/v1/system/verify", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return { status: true, system: tokenResponse.data.system };
   } catch (error) {
+    console.log(error);
     localStorage.clear();
     return { status: false, message: "Token expired." };
   }
