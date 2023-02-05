@@ -6,6 +6,7 @@ const types = {
   REGISTER_CANDIDATE: "REGISTER_CANDIDATE",
   UPLOAD_ERROR: "UPLOAD_ERROR",
   VOID_CANDIDATE: "VOID_CANDIDATE",
+  GET_CANDIDATES: "GET_CANDIDATES",
 };
 
 //updaye avatar
@@ -73,6 +74,30 @@ const createCandidate = (data) => async (dispatch) => {
       type: types.REGISTER_CANDIDATE,
       payload: register.data.candidate,
     });
+    dispatch(getCandidates());
+  } catch (error) {
+    dispatch({
+      type: types.UPLOAD_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+const getCandidates = () => async (dispatch) => {
+  try {
+    const candidates = await axios.post(
+      "/api/v1/admin/candidates",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin_token")}`,
+        },
+      }
+    );
+    dispatch({
+      type: types.GET_CANDIDATES,
+      payload: candidates.data,
+    });
   } catch (error) {
     dispatch({
       type: types.UPLOAD_ERROR,
@@ -89,6 +114,7 @@ const CandidateAction = {
   updateAvatar,
   createCandidate,
   voidCandidateOnState,
+  getCandidates,
   types,
 };
 

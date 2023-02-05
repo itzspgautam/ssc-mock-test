@@ -5,6 +5,7 @@ const initialState = {
   uploadedImage: null,
   uploadingImage: false,
   uploadError: null,
+  candidates: null,
 };
 
 const CandidateReducer = (state = initialState, action) => {
@@ -29,8 +30,15 @@ const CandidateReducer = (state = initialState, action) => {
         uploadingImage: false,
       };
 
+    case CandidateAction.types.GET_CANDIDATES:
+      return {
+        ...state,
+        candidates: action.payload,
+      };
+
     case CandidateAction.types.VOID_CANDIDATE:
       return {
+        ...state,
         newCandidate: null,
         uploadedImage: null,
         uploadingImage: false,

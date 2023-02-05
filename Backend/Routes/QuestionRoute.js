@@ -13,6 +13,7 @@ const router = express.Router();
 router.route("/question").post(adminAuth, createQuestion);
 
 router.route("/getquestions").post(systemAuth, getQuestion);
+router.route("/getquestionsAdmin").post(adminAuth, getQuestion);
 
 router.route("/answer/submit").post(systemAuth, submitAnswer);
 router.route("/answer/submition").get(getSubmittedAnswer);

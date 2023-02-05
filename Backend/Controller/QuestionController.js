@@ -52,7 +52,7 @@ exports.createQuestion = catchAsyncError(async (req, res, next) => {
       question,
     });
   } catch (error) {
-    return next(new ErrorHandler("All fields are required", 400));
+    return next(new ErrorHandler(error, 400));
   }
 });
 
@@ -65,9 +65,11 @@ exports.getQuestion = catchAsyncError(async (req, res, next) => {
       questions,
     });
   } catch (error) {
-    return next(new ErrorHandler("All fields are required", 400));
+    return next(new ErrorHandler(error, 400));
   }
 });
+
+
 
 exports.submitAnswer = catchAsyncError(async (req, res, next) => {
   try {

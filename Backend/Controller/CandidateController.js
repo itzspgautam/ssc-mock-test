@@ -77,6 +77,22 @@ exports.getCandidate = catchAsyncError(async (req, res, next) => {
   }
 });
 
+exports.getCandidates = catchAsyncError(async (req, res, next) => {
+  try {
+    const candidates = await CandidateModel.find().sort("-createdDate");
+
+    if (candidates) {
+      res.status(201).json({
+        success: true,
+        count: candidates.length,
+        candidates,
+      });
+    }
+  } catch (error) {
+    return next(new ErrorHandler(error, 401));
+  }
+});
+
 // exports.getAllSystem = catchAsyncError(async (req, res, next) => {
 //   try {
 //     const systems = await SystemModel.find().select("-password");

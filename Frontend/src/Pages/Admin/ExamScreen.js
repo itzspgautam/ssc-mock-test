@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -25,11 +26,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Colors } from "../../Constants";
 import moment from "moment";
-import { FaCalendar } from "react-icons/fa";
-import { BsAlarm, BsNewspaper } from "react-icons/bs";
+import { FaCalendar, FaChevronLeft } from "react-icons/fa";
+import { BsAlarm, BsNewspaper, BsThreeDotsVertical } from "react-icons/bs";
 import { QuestionImport } from "../../Components";
 import { useState } from "react";
 import { SystemAction } from "../../State/Actions";
+import axios from "axios";
 
 const ExamScreen = () => {
   const dispatch = useDispatch();
@@ -42,16 +44,40 @@ const ExamScreen = () => {
   const [date, setDate] = useState("");
   const [question, setQuestion] = useState("");
 
+  const [activeQuestionSet, setActiveQuestionSet] = useState(null);
+  const [activeTitle, setActiveTitle] = useState("");
+  const [loading, setLoading] = useState(null);
+
   const createExamHandle = () => {
     console.log(duration);
     dispatch(SystemAction.createExam(title, date, duration, question));
   };
+  const viewQuestion = async (exam) => {
+    setLoading(exam._id);
+    setActiveTitle(exam.title + "- " + moment(exam.date).format("DD/MM/YYYY"));
+    try {
+      const token = await localStorage.getItem("admin_token");
+
+      const { data } = await axios.post(
+        "/api/v1/getquestionsAdmin",
+        { exam: exam._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(data.questions);
+      setActiveQuestionSet(data.questions);
+      setLoading(null);
+    } catch (error) {}
+  };
 
   return (
     <Grid
-      templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)"]}
+      templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(5, 1fr)"]}
     >
-      <GridItem bg="blue.500">
+      <GridItem bg="blue.500" colSpan={2}>
         <Center h="100%" p="10">
           <Card w="100%">
             <CardHeader>
@@ -140,34 +166,162 @@ const ExamScreen = () => {
           </Card>
         </Center>
       </GridItem>
-      <GridItem bg={Colors.DARK4}>
+      <GridItem bg={Colors.DARK4} colSpan={3}>
         <Box bg={Colors.LIGHT_WHITE} h="100vh" overflowY={"auto"}>
-          <TableContainer w={["100vw", "100vw", "50vw"]}>
-            <Table variant="striped" colorScheme="red">
-              {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-              <Thead>
-                <Tr>
-                  <Th>Sl</Th>
-                  <Th>Exam</Th>
-                  <Th>Date</Th>
-                  <Th isNumeric>Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {exams &&
-                  exams.map((e, i) => (
-                    <Tr key={i}>
-                      <Td>{i + 1}</Td>
-                      <Td>{e.title}</Td>
-                      <Td>{moment(e.date).format("DD/MM/YYYY")}</Td>
-                      <Td isNumeric>
-                        <Button size="sm">View</Button>
-                      </Td>
+          {!activeQuestionSet ? (
+            <TableContainer>
+              <Table variant="striped" colorScheme="blue">
+                {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                <Thead>
+                  <Tr>
+                    <Th>Sl</Th>
+                    <Th>Exam</Th>
+                    <Th>Date</Th>
+                    <Th isNumeric>Action</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {exams &&
+                    exams.map((e, i) => (
+                      <Tr key={i}>
+                        <Td>
+                          {i + 1} - {e._id}
+                        </Td>
+                        <Td>{e.title}</Td>
+                        <Td>{moment(e.date).format("DD MMM, YYYY")}</Td>
+                        <Td isNumeric>
+                          <Button
+                            colorScheme={"blue"}
+                            isLoading={loading === e._id ? true : false}
+                            size="sm"
+                            onClick={() => viewQuestion(e)}
+                          >
+                            View Questions
+                          </Button>
+                        </Td>
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Box>
+              <Center
+                p="4"
+                bg="cyan.700"
+                justifyContent={"space-between"}
+                position="sticky"
+                top={0}
+                zIndex="2"
+              >
+                <FaChevronLeft
+                  size={25}
+                  color="white"
+                  onClick={() => setActiveQuestionSet(null)}
+                  cursor="pointer"
+                  title="Go Back"
+                />
+                <Text fontSize={22} fontWeight="semibold" color="white">
+                  {activeTitle}
+                </Text>
+                <BsThreeDotsVertical size="25" color="white" />
+              </Center>
+              <TableContainer>
+                <Table variant="striped" colorScheme="cyan">
+                  {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                  <Thead>
+                    <Tr>
+                      <Th rowSpan={2}>Sl</Th>
+                      <Th rowSpan={2}>Question</Th>
+                      <Th colSpan={4} textAlign="center">
+                        Options
+                      </Th>
+                      <Th rowSpan={2} isNumeric>
+                        Answer
+                      </Th>
                     </Tr>
-                  ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                    <Tr>
+                      <Th>A</Th>
+                      <Th>B</Th>
+                      <Th>C</Th>
+                      <Th>D</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {activeQuestionSet &&
+                      activeQuestionSet.map((q, i) => (
+                        <Tr key={i}>
+                          <Td>{i + 1}</Td>
+                          <Td
+                            fontSize="sm"
+                            fontWeight={"medium"}
+                            maxW="600px"
+                            pr={5}
+                            isTruncated
+                          >
+                            {q?.title?.english}
+                            <br />
+                            {q?.title?.hindi}
+                          </Td>
+                          <Td
+                            fontSize="sm"
+                            fontWeight={"medium"}
+                            maxw="250px"
+                            isTruncated
+                          >
+                            <Badge colorScheme={"red"}>A</Badge>{" "}
+                            {q?.options[0]?.english}
+                            <br />
+                            {q?.options[0]?.hindi}
+                          </Td>
+
+                          <Td
+                            fontSize="sm"
+                            fontWeight={"medium"}
+                            maxw="250px"
+                            isTruncated
+                          >
+                            <Badge colorScheme={"red"}>B</Badge>{" "}
+                            {q?.options[1]?.english}
+                            <br />
+                            {q?.options[1]?.hindi}
+                          </Td>
+
+                          <Td
+                            fontSize="sm"
+                            fontWeight={"medium"}
+                            maxw="250px"
+                            isTruncated
+                          >
+                            <Badge colorScheme={"red"}>C</Badge>{" "}
+                            {q?.options[2]?.english}
+                            <br />
+                            {q?.options[2]?.hindi}
+                          </Td>
+
+                          <Td
+                            fontSize="sm"
+                            fontWeight={"medium"}
+                            isTruncated
+                            maxw="250px"
+                          >
+                            <Badge colorScheme={"red"}>D</Badge>{" "}
+                            {q?.options[3]?.english}
+                            <br />
+                            {q?.options[3]?.hindi}
+                          </Td>
+                          <Td>
+                            <Badge fontSize={18} p="2" colorScheme={"green"}>
+                              {q.correctOption}
+                            </Badge>
+                          </Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Box>
+          )}
         </Box>
       </GridItem>
     </Grid>
