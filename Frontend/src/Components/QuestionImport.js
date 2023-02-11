@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as xlsx from "xlsx";
-export const QuestionImport = ({ setQuestion }) => {
+export const QuestionImport = ({ setQuestion, setQuestionError }) => {
   const readUploadFile = async (e) => {
     e.preventDefault();
+
     if (e.target.files) {
       const reader = new FileReader();
       reader.onload = async (e) => {
@@ -12,7 +13,32 @@ export const QuestionImport = ({ setQuestion }) => {
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
         let ques = [];
-        await json.forEach((q) => {
+        let error = [];
+        await json.forEach((q, i) => {
+          console.log(q);
+          let qNo = i + 1;
+          if (q.Qenglish === undefined || q.Qhindi === undefined) {
+            error.push("Question is empty in question no:" + qNo);
+          }
+
+          if (q.Aenglish === undefined || q.Ahindi === undefined) {
+            error.push("Option A is empty in question no:" + qNo);
+          }
+
+          if (q.Benglish === undefined || q.Bhindi === undefined) {
+            error.push("Option B is empty in question no:" + qNo);
+          }
+          if (q.Cenglish === undefined || q.Chindi === undefined) {
+            error.push("Option C is empty in question no:" + qNo);
+          }
+          if (q.Denglish === undefined || q.Dhindi === undefined) {
+            error.push("Option D is empty in question no:" + qNo);
+          }
+
+          if (!q.correct) {
+            error.push("Correct Option is empty in question no:" + i);
+          }
+
           ques.push({
             title: {
               english: q.Qenglish,
@@ -48,14 +74,21 @@ export const QuestionImport = ({ setQuestion }) => {
           });
         });
         setQuestion(ques);
+        setQuestionError(error);
       };
       reader.readAsArrayBuffer(e.target.files[0]);
+      e.target.value = "";
     }
   };
 
   return (
     <form>
-      <input type="file" name="upload" id="upload" onChange={readUploadFile} />
+      <input
+        type="file"
+        name="upload"
+        id="upload"
+        onChange={(e) => readUploadFile(e)}
+      />
     </form>
   );
 };

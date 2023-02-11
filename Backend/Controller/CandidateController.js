@@ -1,10 +1,7 @@
 const catchAsyncError = require("../Middleware/catchAsyncError");
-const SystemModel = require("../Models/SystemModel");
 const ErrorHandler = require("../Utils/errorHandler");
-const { generateToken } = require("../Utils/jwtToken");
-const bcrypt = require("bcrypt");
 const CandidateModel = require("../Models/CandidateModel");
-
+const AnswerModel = require("../Models/AnswerModel");
 // exports.systemLogin = catchAsyncError(async (req, res, next) => {
 //   const { id, password } = req.body;
 //   if (!id || !password) {
@@ -86,6 +83,25 @@ exports.getCandidates = catchAsyncError(async (req, res, next) => {
         success: true,
         count: candidates.length,
         candidates,
+      });
+    }
+  } catch (error) {
+    return next(new ErrorHandler(error, 401));
+  }
+});
+
+exports.getParticipation = catchAsyncError(async (req, res, next) => {
+  try {
+    const participation = await AnswerModel.find()
+      .sort("-createdDate")
+      .populate("candidate")
+      .populate("exam");
+
+    if (participation) {
+      res.status(201).json({
+        success: true,
+        count: participation.length,
+        participation,
       });
     }
   } catch (error) {

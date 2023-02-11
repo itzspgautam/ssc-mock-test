@@ -6,6 +6,7 @@ import {
   CardBody,
   CardHeader,
   Center,
+  Flex,
   Grid,
   GridItem,
   Heading,
@@ -44,12 +45,19 @@ const ExamScreen = () => {
   const [date, setDate] = useState("");
   const [question, setQuestion] = useState("");
 
+  const [questionError, setQuestionError] = useState([]);
+
   const [activeQuestionSet, setActiveQuestionSet] = useState(null);
   const [activeTitle, setActiveTitle] = useState("");
   const [loading, setLoading] = useState(null);
 
+  const [fullView, setFullView] = useState(false);
+
   const createExamHandle = () => {
-    console.log(duration);
+    if (questionError.length > 0) {
+      console.log(questionError);
+      return;
+    }
     dispatch(SystemAction.createExam(title, date, duration, question));
   };
   const viewQuestion = async (exam) => {
@@ -77,7 +85,11 @@ const ExamScreen = () => {
     <Grid
       templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(5, 1fr)"]}
     >
-      <GridItem bg="blue.500" colSpan={2}>
+      <GridItem
+        bg="blue.500"
+        colSpan={fullView ? 0 : 2}
+        display={fullView ? "none" : "block"}
+      >
         <Center h="100%" p="10">
           <Card w="100%">
             <CardHeader>
@@ -133,7 +145,10 @@ const ExamScreen = () => {
 
                   <Box border="1px" borderColor={Colors.DARK2}>
                     Select question excel file
-                    <QuestionImport setQuestion={setQuestion} />
+                    <QuestionImport
+                      setQuestion={setQuestion}
+                      setQuestionError={setQuestionError}
+                    />
                     <a
                       href="https://res.cloudinary.com/dtpspzd66/raw/upload/v1674682413/Excel/Demo_Questions_igl9ix.xlsx"
                       download
@@ -151,9 +166,17 @@ const ExamScreen = () => {
                       </Text>
                     </a>
                   </Box>
-                  <Text color={"red"} fontSize="14" fontWeight={"medium"}>
-                    {error && error}
-                  </Text>
+                  <Box color={"red"} fontSize="14" fontWeight={"medium"}>
+                    <Text>{error && error}</Text>
+                    <Text>
+                      {questionError?.map((e) => (
+                        <>
+                          {e}
+                          <br />
+                        </>
+                      ))}
+                    </Text>
+                  </Box>
                   <Button
                     colorScheme={"teal"}
                     onClick={() => createExamHandle()}
@@ -166,12 +189,28 @@ const ExamScreen = () => {
           </Card>
         </Center>
       </GridItem>
-      <GridItem bg={Colors.DARK4} colSpan={3}>
+      <GridItem bg={Colors.DARK4} colSpan={fullView ? 5 : 3}>
         <Box bg={Colors.LIGHT_WHITE} h="100vh" overflowY={"auto"}>
+          <Flex
+            justifyContent="space-between"
+            bg="gray.100"
+            p="4"
+            fontWeight={"bold"}
+            fontSize="18"
+          >
+            <Text> Exam List</Text>
+            <Button
+              size="sm"
+              colorScheme={"blue"}
+              borderRadius="2"
+              onClick={() => setFullView(!fullView)}
+            >
+              {fullView ? "Side by Side" : "Full Screen"}
+            </Button>
+          </Flex>
           {!activeQuestionSet ? (
             <TableContainer>
               <Table variant="striped" colorScheme="blue">
-                {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
                 <Thead>
                   <Tr>
                     <Th>Sl</Th>

@@ -51,6 +51,7 @@ const SystemReducer = (state = initialState, action) => {
       return {
         ...state,
         newExam: action.payload,
+        error: null,
       };
 
     case SystemAction.types.SET_NEW_EXAM_LOADING:

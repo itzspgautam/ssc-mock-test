@@ -7,6 +7,7 @@ const {
 const {
   registerCandidate,
   getCandidates,
+  getParticipation,
 } = require("../Controller/CandidateController");
 const { adminAuth } = require("../Middleware/auth");
 
@@ -19,5 +20,7 @@ router.route("/admin/verify").post(tokenVerification);
 router.route("/admin/candidates").post(adminAuth, getCandidates);
 
 router.route("/admin/candidate/register").post(adminAuth, registerCandidate);
+
+router.route("/admin/participation").post(adminAuth, getParticipation);
 
 module.exports = router;
