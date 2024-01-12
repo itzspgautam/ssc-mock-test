@@ -14,7 +14,7 @@ const VirtualKeyboard = ({ setInput, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onChange = (input) => {
-    setInput(input);
+    setInput(input.toString().toUpperCase());
   };
 
   // const onKeyPress = (button) => {
@@ -35,7 +35,7 @@ const VirtualKeyboard = ({ setInput, children }) => {
         >
           <ModalHeader p="1">Keyboard</ModalHeader>
           <ModalCloseButton />
-          <Keyboard onChange={(e) => onChange(e)} />
+          <Keyboard onChange={(e) =>  onChange(e)} />
         </ModalContent>
       </Modal>
     </>

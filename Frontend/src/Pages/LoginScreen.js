@@ -36,6 +36,7 @@ const LoginScreen = () => {
   const [error, setError] = useState("");
 
   const handleCandidateLogin = async () => {
+    console.log(userName)
     if (!userName) {
       setError("Please enter registration number.");
       return;
@@ -49,7 +50,7 @@ const LoginScreen = () => {
     let m = password.substring(2, 4);
     let y = password.substring(4, 8);
     let PasswordToDate = d + "/" + m + "/" + y;
-    if (parseInt(userName) !== assignCandidate?.reg) {
+    if (userName !== assignCandidate?.reg) {
       setError("Invalid registration number.");
       return;
     }
@@ -210,7 +211,7 @@ const LoginScreen = () => {
                   />
                   <Input
                     placeholder="Registration No"
-                    type={"number"}
+                    type={"text"}
                     value={userName}
                     bgColor={"transparent"}
                     borderColor={Colors.DARK3}

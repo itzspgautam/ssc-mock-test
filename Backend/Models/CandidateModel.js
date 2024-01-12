@@ -13,7 +13,7 @@ const candidateSchema = mongoose.Schema({
     required: [true, "Please select exam to enroll"],
   },
   reg: {
-    type: Number,
+    type: String,
     required: [true, "Invalid registration Number."],
   },
   birthdate: {
